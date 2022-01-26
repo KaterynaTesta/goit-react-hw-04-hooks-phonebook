@@ -1,27 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import ContactListItem from './ContactListItem';
-
-const ContactList = ({ contacts, onDeleteContact }) => {
+import { Button } from './ContactItemStyled';
+export default function ContactList({ contacts, onDelete }) {
   return (
     <ul>
-      {contacts.map(contact => (
-        <li key={contact.id}>
-          <ContactListItem contact={contact} onDeleteContact={onDeleteContact} />
+      {contacts.map(({ name, number, id }) => (
+        <li key={id}>
+          <p>
+            {name}: {number}
+          </p>
+          <Button type="button" onClick={() => onDelete(id)}>
+            Delete contact
+          </Button>
         </li>
       ))}
     </ul>
   );
-};
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
-  onDeleteContact: PropTypes.func.isRequired,
-};
+}
 
-export default ContactList;
+// const ContactList = ({ contacts, onDeleteContact }) => {
+//   return (
+//     <ul>
+//       {contacts.map(({ name, number, id }) => (
+//         <li key={id}>
+//           <p>{`${name}: ${number}`}</p>
+
+//           <ContactListItem type="button" onClick={() => onDeleteContact(id)}>
+//             Delete
+//           </ContactListItem>
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// };
